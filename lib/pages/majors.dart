@@ -15,19 +15,19 @@ class majors extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-            Align(
-        alignment: Alignment.topLeft, 
-        child: IconButton(
-          icon: const Icon(Icons.arrow_back), 
-          onPressed: () {
-            Navigator.of(context).pushNamed('homepage'); 
-          },
-          ),),
+          Align(
+            alignment: Alignment.topLeft,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pushNamed('homepage');
+              },
+            ),
+          ),
           AppBarWidget(),
           const Padding(
             padding: EdgeInsets.only(top: 10, left: 10, bottom: 3),
           ),
-         
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(10.0),
