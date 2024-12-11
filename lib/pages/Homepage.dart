@@ -158,9 +158,8 @@ class Homepage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _buildIconWithLabel(Icons.home, "Home", () {}),
-            _buildIconWithLabel(Icons.favorite, "Favorite", () {}),
             _buildIconWithLabel(Icons.person, "Account", () {}),
-            _buildIconWithLabel(Icons.settings, "Settings", () {}),
+            _buildIconWithLabel(Icons.help, "FAQ", () {}),
           ],
         ),
       ),
@@ -206,7 +205,7 @@ class AppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-      height: 200,
+      height: 180,
       width: double.infinity,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(

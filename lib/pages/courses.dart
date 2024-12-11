@@ -7,7 +7,14 @@ class courses extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: [AppBarWidget(), const SizedBox(height: 20), Breif()],
+        children: [ Align(
+        alignment: Alignment.topLeft, 
+        child: IconButton(
+          icon: const Icon(Icons.arrow_back), 
+          onPressed: () {
+            Navigator.of(context).pushNamed('homepage'); 
+          },
+          ),),AppBarWidget(), const SizedBox(height: 20),  Breif(),],
       ),
     );
   }
@@ -196,7 +203,6 @@ class Breif extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 20,
                                 color: const Color.fromARGB(255, 53, 86, 167),
-                                fontFamily: 'Pacifico',
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -248,7 +254,6 @@ class Breif extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 20,
                                 color: const Color.fromARGB(255, 53, 86, 167),
-                                fontFamily: 'Pacifico',
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -299,7 +304,6 @@ class Breif extends StatelessWidget {
                               "ADV",
                               style: TextStyle(
                                 color: const Color.fromARGB(255, 53, 86, 167),
-                                fontFamily: 'Pacifico',
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
