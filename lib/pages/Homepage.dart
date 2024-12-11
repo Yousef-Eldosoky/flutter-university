@@ -2,18 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:university/pages/courses.dart';
 import 'package:university/pages/majors.dart';
 
-
 class Homepage extends StatelessWidget {
-  
-  
   final List<Map<String, dynamic>> gridItems = [
     {"title": "Courses", "image": "images/cor.jpg", "page": majors()},
     {"title": "My Application", "image": "images/app.jpg", "page": null},
     {"title": "Apply Now", "image": "images/apply.jpg", "page": null},
     {"title": "Majors", "image": "images/mj.jpg", "page": courses()},
   ];
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +20,27 @@ class Homepage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'images/app.jpg', 
+                'images/app.jpg',
                 height: 200,
                 width: 200,
               ),
-              SizedBox(height: 40),
-              Text(
+              const SizedBox(height: 40),
+              const Text(
                 'welcome to iaems   \n   \n       wish you all the best',
                 style: TextStyle(
                   color: Colors.white,
-                   fontFamily: 'Pacifico',
+                  fontFamily: 'Pacifico',
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 70,),
-              Icon(Icons.favorite,color: const Color.fromARGB(255, 255, 255, 255),)
+              const SizedBox(
+                height: 70,
+              ),
+              const Icon(
+                Icons.favorite,
+                color: const Color.fromARGB(255, 255, 255, 255),
+              )
             ],
           ),
         ),
@@ -49,61 +49,22 @@ class Homepage extends StatelessWidget {
         child: Column(
           children: [
             AppBarWidget(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 248, 246, 246),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.search,
-                      color: const Color.fromARGB(255, 94, 131, 243),
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          labelText: "Search your topic",
-                          labelStyle: TextStyle(fontSize: 15, color: Colors.grey),
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 5, left: 10, bottom: 0),
               child: Text(
                 "let's start the journey....                                     ^ ",
                 style: TextStyle(
                   fontSize: 15,
-                 
                   color: const Color.fromARGB(255, 94, 131, 243),
                 ),
               ),
             ),
-        
             Padding(
               padding: const EdgeInsets.all(15),
               child: GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -132,7 +93,7 @@ class Homepage extends StatelessWidget {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 2,
                             blurRadius: 10,
-                            offset: Offset(0, 3),
+                            offset: const Offset(0, 3),
                           ),
                         ],
                       ),
@@ -144,10 +105,10 @@ class Homepage extends StatelessWidget {
                             height: 100,
                             width: 100,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             item['title']!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 13,
                               color: const Color.fromARGB(255, 94, 131, 243),
                             ),
@@ -159,12 +120,11 @@ class Homepage extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GestureDetector(
               onVerticalDragEnd: (details) {
-                if (details.primaryVelocity! < 0) { 
+                if (details.primaryVelocity! < 0) {
                   Scaffold.of(context).openDrawer();
-                
                 }
               },
               child: Container(
@@ -178,7 +138,7 @@ class Homepage extends StatelessWidget {
                     width: 2,
                   ),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     "swipe ^^ ",
                     style: TextStyle(
@@ -206,17 +166,18 @@ class Homepage extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildIconWithLabel(IconData icon, String label, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Color.fromARGB(255, 87, 119, 214), size: 30),
-          SizedBox(height: 4),
+          Icon(icon, color: const Color.fromARGB(255, 87, 119, 214), size: 30),
+          const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(color: Colors.grey, fontSize: 10),
+            style: const TextStyle(color: Colors.grey, fontSize: 10),
           ),
         ],
       ),
@@ -224,23 +185,23 @@ class Homepage extends StatelessWidget {
   }
 }
 
+PageRouteBuilder _createPageRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0); // Slide from right
+      const end = Offset.zero;
+      const curve = Curves.easeInOut;
 
-  PageRouteBuilder _createPageRoute(Widget page) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0); // Slide from right
-        const end = Offset.zero;
-        const curve = Curves.easeInOut;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var offsetAnimation = animation.drive(tween);
 
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
+      return SlideTransition(position: offsetAnimation, child: child);
+    },
+  );
+}
 
-        return SlideTransition(position: offsetAnimation, child: child);
-      },
-    );
-  }
-  class AppBarWidget extends StatelessWidget {
+class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -253,7 +214,10 @@ class Homepage extends StatelessWidget {
           bottomRight: Radius.circular(20),
         ),
         gradient: LinearGradient(
-          colors: [Color.fromARGB(255, 53, 86, 167), Color.fromARGB(255, 94, 131, 243)],
+          colors: [
+            Color.fromARGB(255, 53, 86, 167),
+            Color.fromARGB(255, 94, 131, 243)
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -265,12 +229,13 @@ class Homepage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 50,
+                  ),
                   Text(
-                    
                     "IAEMS",
                     style: TextStyle(
                       color: Colors.white,
@@ -283,7 +248,6 @@ class Homepage extends StatelessWidget {
                     "Welcome to IAEMS!",
                     style: TextStyle(
                       color: Colors.white70,
-                     
                       fontSize: 14,
                       fontStyle: FontStyle.italic,
                     ),
@@ -291,7 +255,7 @@ class Homepage extends StatelessWidget {
                 ],
               ),
               Container(
-                padding: EdgeInsets.all(0.1),
+                padding: const EdgeInsets.all(0.1),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(50),
@@ -300,12 +264,12 @@ class Homepage extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 1,
                       blurRadius: 8,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
                 child: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.notifications,
                     size: 25,
                     color: Colors.white,
@@ -320,5 +284,3 @@ class Homepage extends StatelessWidget {
     );
   }
 }
-
-
