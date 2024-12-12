@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:university/business/login.dart';
+import 'package:university/pages/register.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -8,6 +10,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,8 +100,9 @@ class _LoginState extends State<Login> {
                                       BorderSide(color: Colors.grey.shade200),
                                 ),
                               ),
-                              child: const TextField(
-                                decoration: InputDecoration(
+                              child: TextField(
+                                controller: emailController,
+                                decoration: const InputDecoration(
                                   hintText: "Write Your Email",
                                   hintStyle: TextStyle(color: Colors.grey),
                                   border: InputBorder.none,
@@ -114,9 +121,10 @@ class _LoginState extends State<Login> {
                                       BorderSide(color: Colors.grey.shade200),
                                 ),
                               ),
-                              child: const TextField(
+                              child: TextField(
+                                controller: passwordController,
                                 obscureText: true,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: "Password",
                                   hintStyle: TextStyle(color: Colors.grey),
                                   border: InputBorder.none,
@@ -130,34 +138,104 @@ class _LoginState extends State<Login> {
                         height: 40,
                       ),
                       Container(
-                        height: 50,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: const Color(0xFF3556A7),
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 155,
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF3556A7).withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
                             ),
-                            Text(
-                              "Login",
+                          ],
+                        ),
+                        child: ElevatedButton(
+                          onPressed: isLoading
+                              ? null
+                              : () async {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  await login(
+                                    emailController.text,
+                                    passwordController.text,
+                                    context,
+                                  );
+                                  if (mounted) {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  }
+                                },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF3556A7),
+                            minimumSize: const Size(double.infinity, 55),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (isLoading)
+                                  Container(
+                                    width: 24,
+                                    height: 24,
+                                    margin: const EdgeInsets.only(right: 10),
+                                    child: const CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                else
+                                  const Icon(
+                                    Icons.login,
+                                    color: Colors.white,
+                                    size: 24,
+                                  ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  isLoading ? "Logging in..." : "Login",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Don't have an account? ",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Register(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              "Register",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+                                color: Color(0xFF3556A7),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(
-                              width: 100,
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
