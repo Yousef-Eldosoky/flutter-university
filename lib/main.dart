@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:university/pages/courses.dart';
 import 'package:university/pages/majors.dart';
-import 'pages/Homepage.dart';
+import 'package:university/pages/Homepage.dart';
+import 'package:university/pages/auth_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
         "splash": (context) => SplashScreen(),
         "homepage": (context) => Homepage(),
         "major": (context) => majors(),
-        "course": (context) => courses(),
+        "course": (context) => const courses(),
+        "auth": (context) => const AuthWrapper(),
       },
     );
   }
@@ -56,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 4), () {
-      Navigator.pushReplacementNamed(context, 'homepage');
+      Navigator.pushReplacementNamed(context, 'auth');
     });
   }
 
