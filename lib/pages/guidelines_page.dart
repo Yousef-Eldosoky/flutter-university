@@ -20,11 +20,11 @@ class _GuidelinesPageState extends State<GuidelinesPage> {
         child: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushNamed('homepage');
+            Navigator.of(context).pop();
           },
         ),
       ),
-      AppBarWidget(
+      const AppBarWidget(
           title: "Guidelines & FAQs",
           subtitle: "Application guide and support",
           icon:  Icons.help_outline,),

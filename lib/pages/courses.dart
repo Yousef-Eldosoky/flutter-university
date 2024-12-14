@@ -13,7 +13,7 @@ class courses extends StatelessWidget {
             child: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                Navigator.of(context).pushNamed('homepage');
+                Navigator.of(context).pop();
               },
             ),
           ),
