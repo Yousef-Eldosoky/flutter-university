@@ -17,49 +17,37 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          color: Color(0xFF3556A7),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 60,
-            ),
-            const Image(
-              height: 250,
-              image: AssetImage("Assets/52355.png"),
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Welcome ",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                  ),
-                ),
-                Icon(
-                  Icons.waving_hand,
-                  color: Colors.yellow,
-                ),
-              ],
-            ),
-            const Text(
-              'Login to your university.',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            color: Color(0xFF3556A7),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 60),
+              const Image(
+                height: 200,
+                image: AssetImage("Assets/52355.png"),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: Container(
+              const Text(
+                "Welcome",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Login to your university.',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -71,9 +59,7 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      const SizedBox(height: 40),
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -89,11 +75,7 @@ class _LoginState extends State<Login> {
                         child: Column(
                           children: [
                             Container(
-                              padding: const EdgeInsets.only(
-                                left: 20,
-                                top: 5,
-                                bottom: 5,
-                              ),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom:
@@ -110,11 +92,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             Container(
-                              padding: const EdgeInsets.only(
-                                left: 20,
-                                top: 5,
-                                bottom: 5,
-                              ),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom:
@@ -134,9 +112,7 @@ class _LoginState extends State<Login> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      const SizedBox(height: 40),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
@@ -241,8 +217,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
