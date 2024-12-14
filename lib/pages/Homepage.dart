@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:university/pages/courses.dart';
 import 'package:university/pages/majors.dart';
 
+import 'guidelines_page.dart';
+
 class Homepage extends StatelessWidget {
   final List<Map<String, dynamic>> gridItems = [
     {"title": "Courses", "image": "images/cor.jpg", "page": majors()},
@@ -159,7 +161,12 @@ class Homepage extends StatelessWidget {
           children: [
             _buildIconWithLabel(Icons.home, "Home", () {}),
             _buildIconWithLabel(Icons.person, "Account", () {}),
-            _buildIconWithLabel(Icons.help, "FAQ", () {}),
+            _buildIconWithLabel(Icons.help, "FAQ", () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GuidelinesPage()),
+              );
+            }),
           ],
         ),
       ),
