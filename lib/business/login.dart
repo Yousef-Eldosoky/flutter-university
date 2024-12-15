@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:university/pages/Homepage.dart';
 
 // Create storage
@@ -131,7 +133,7 @@ Future<void> register(
       },
       body: body,
     );
-
+    log(response.body);
     if (response.statusCode == 200) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
