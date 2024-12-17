@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university/business/login.dart';
+import 'package:university/business/auth_service.dart';
 import 'package:university/pages/register.dart';
 
 class Login extends StatefulWidget {
@@ -132,7 +132,7 @@ class _LoginState extends State<Login> {
                                   setState(() {
                                     isLoading = true;
                                   });
-                                  await login(
+                                  await AuthService.login(
                                     emailController.text,
                                     passwordController.text,
                                     context,
