@@ -9,7 +9,7 @@ class Homepage extends StatelessWidget {
   final List<Map<String, dynamic>> gridItems = [
     {"title": "Courses", "image": "images/cor.jpg", "page": majors()},
     {"title": "My Application", "image": "images/app.jpg", "page": null},
-    {"title": "Apply Now", "image": "images/apply.jpg", "page": const ApplicationForm()},
+    {"title": "Apply Now", "image": "images/apply.jpg", "page": ApplicationForm()},
     {"title": "Majors", "image": "images/mj.jpg", "page": const courses()},
   ];
 
