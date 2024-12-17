@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: const Color(0xFF3f51b5),
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3f51b5)),
-      ),
-      home: const ApplicationStatusPage(),
-    );
-  }
-}
+import 'Homepage.dart';
 
 class ApplicationStatusPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+          AppBarWidget(),
+          const SizedBox(height: 40),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: buildStatusCard('pending'),
+          ),
+        ],
+      ),
+    );
+  }
+
   const ApplicationStatusPage({super.key});
 
   final String currentStatus = 'pending';
@@ -92,9 +100,7 @@ class ApplicationStatusPage extends StatelessWidget {
       ),
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildScaffold(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Application Status'),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:university/pages/courses.dart';
 import 'package:university/pages/majors.dart';
-
 import 'guidelines_page.dart';
+import 'applicationstatus.dart';
 
 class Homepage extends StatelessWidget {
   final List<Map<String, dynamic>> gridItems = [
     {"title": "Courses", "image": "images/cor.jpg", "page": majors()},
-    {"title": "My Application", "image": "images/app.jpg", "page": null},
+    {"title": "My Application", "image": "images/app.jpg", "page": ApplicationStatusPage()},
     {"title": "Apply Now", "image": "images/apply.jpg", "page": null},
     {"title": "Majors", "image": "images/mj.jpg", "page": courses()},
   ];
@@ -189,6 +189,10 @@ class Homepage extends StatelessWidget {
       ),
     );
   }
+}
+
+class ApplicationStatus {
+  const ApplicationStatus();
 }
 
 PageRouteBuilder _createPageRoute(Widget page) {
