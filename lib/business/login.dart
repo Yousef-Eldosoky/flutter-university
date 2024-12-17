@@ -181,8 +181,14 @@ Future<bool> isLoggedIn() async {
         'Cookie': cookie,
       },
     );
-    print(response.body);
-    return response.statusCode == 200;
+    if (response.statusCode == 200) {
+      final cookie = response.headers['set-cookie'];
+      if (cookie != null) {
+        await _storage.write(key: _cookieKey, value: cookie);
+      }
+      return true;
+    }
+    return false;
   } catch (e) {
     return false;
   }
