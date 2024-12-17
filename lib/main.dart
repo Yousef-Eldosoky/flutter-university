@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:university/pages/courses.dart';
-import 'package:university/pages/majors.dart';
+import 'package:university/business/notifications_services.dart';
 import 'package:university/pages/Homepage.dart';
 import 'package:university/pages/auth_wrapper.dart';
+import 'package:university/pages/courses.dart';
+import 'package:university/pages/majors.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationsService.init();
   runApp(const MyApp());
 }
 
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "splash",
       routes: {
-        "splash": (context) => SplashScreen(),
+        "splash": (context) => const SplashScreen(),
         "homepage": (context) => Homepage(),
         "major": (context) => majors(),
         "course": (context) => const courses(),
@@ -32,6 +35,8 @@ class MyApp extends StatelessWidget {
 }
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
