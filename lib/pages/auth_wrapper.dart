@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university/business/login.dart';
+import 'package:university/business/auth_service.dart';
 import 'package:university/pages/Homepage.dart';
 import 'package:university/pages/login.dart';
 
@@ -9,7 +9,7 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-      future: isLoggedIn(),
+      future: AuthService.isLoggedIn(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
