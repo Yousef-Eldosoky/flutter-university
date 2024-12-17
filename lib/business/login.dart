@@ -7,9 +7,10 @@ import 'package:university/pages/Homepage.dart';
 // Create storage
 const _storage = FlutterSecureStorage();
 const _cookieKey = 'auth_cookies';
+const apiUrl = "https://university.tryasp.net";
 
 Future<void> login(String email, String password, BuildContext context) async {
-  final url = Uri.parse('http://university.tryasp.net/login?useCookies=true');
+  final url = Uri.parse('$apiUrl/login?useCookies=true');
 
   try {
     // Validate input
@@ -80,7 +81,7 @@ Future<void> login(String email, String password, BuildContext context) async {
 
 Future<void> register(
     String email, String password, String name, BuildContext context) async {
-  final url = Uri.parse('http://university.tryasp.net/register');
+  final url = Uri.parse('$apiUrl/register');
 
   try {
     // Validate input
@@ -172,7 +173,7 @@ Future<bool> isLoggedIn() async {
   if (cookie == null) return false;
 
   // Validate the cookie by making a test request
-  final url = Uri.parse('http://university.tryasp.net/manage/info');
+  final url = Uri.parse('$apiUrl/manage/info');
   try {
     final response = await http.get(
       url,
