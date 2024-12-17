@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university/business/login.dart';
+import 'package:university/business/auth_service.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -147,7 +147,7 @@ class _RegisterState extends State<Register> {
                                   setState(() {
                                     isLoading = true;
                                   });
-                                  await register(
+                                  await AuthService.register(
                                     emailController.text,
                                     passwordController.text,
                                     nameController.text,
