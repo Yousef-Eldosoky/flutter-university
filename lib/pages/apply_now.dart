@@ -14,6 +14,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
   String _email = '';
   String _previousEducation = '';
   String _selectedSpecialization = '';
+  String _nationalId = '';
   List<String> specializations = ['Computer Science', 'Business', 'Design'];
 
   List<PlatformFile>? _selectedFiles;
@@ -48,7 +49,8 @@ class _ApplicationFormState extends State<ApplicationForm> {
       print('Email: $_email');
       print('Previous Education: $_previousEducation');
       print('Selected Specialization: $_selectedSpecialization');
-      print('Uploaded Documents: ${_selectedFiles?.map((f) => f.name).toList()}');
+      print(
+          'Uploaded Documents: ${_selectedFiles?.map((f) => f.name).toList()}');
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Application Submitted Successfully!')),
@@ -63,6 +65,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
       _email = '';
       _previousEducation = '';
       _selectedSpecialization = '';
+      _nationalId = '';
       _selectedFiles = null;
     });
     _formKey.currentState!.reset();
@@ -128,9 +131,10 @@ class _ApplicationFormState extends State<ApplicationForm> {
                       labelText: 'Email',
                       icon: Icons.email,
                       initialValue: _email,
-                      validator: (value) => value!.isEmpty || !value.contains('@')
-                          ? 'Please enter a valid email'
-                          : null,
+                      validator: (value) =>
+                          value!.isEmpty || !value.contains('@')
+                              ? 'Please enter a valid email'
+                              : null,
                       onSaved: (value) => _email = value!,
                     ),
                     SizedBox(height: 15),
@@ -144,13 +148,24 @@ class _ApplicationFormState extends State<ApplicationForm> {
                       onSaved: (value) => _previousEducation = value!,
                     ),
                     SizedBox(height: 15),
+                    _buildStyledField(
+                      labelText: 'National ID',
+                      icon: Icons.person,
+                      initialValue: _nationalId,
+                      validator: (value) => value!.isEmpty
+                          ? 'Please enter your National ID'
+                          : null,
+                      onSaved: (value) => _previousEducation = value!,
+                    ),
+                    SizedBox(height: 15),
                     DropdownButtonFormField(
                       value: _selectedSpecialization.isNotEmpty
                           ? _selectedSpecialization
                           : null,
                       decoration: InputDecoration(
                         labelText: 'Specialization',
-                        prefixIcon: Icon(Icons.category, color: Color(0xFF3556A7)),
+                        prefixIcon:
+                            Icon(Icons.category, color: Color(0xFF3556A7)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -166,14 +181,16 @@ class _ApplicationFormState extends State<ApplicationForm> {
                           _selectedSpecialization = value as String;
                         });
                       },
-                      validator: (value) =>
-                          value == null ? 'Please select a specialization' : null,
+                      validator: (value) => value == null
+                          ? 'Please select a specialization'
+                          : null,
                     ),
                     SizedBox(height: 20),
                     Text(
                       'Upload Documents (PDFs or Images)',
                       style: TextStyle(
-                          color: Color(0xFF3556A7), fontWeight: FontWeight.bold),
+                          color: Color(0xFF3556A7),
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 10),
                     ElevatedButton.icon(
@@ -183,8 +200,9 @@ class _ApplicationFormState extends State<ApplicationForm> {
                     ),
                     if (_selectedFiles != null)
                       Column(
-                        children:
-                            _selectedFiles!.map((file) => Text(file.name)).toList(),
+                        children: _selectedFiles!
+                            .map((file) => Text(file.name))
+                            .toList(),
                       ),
                     SizedBox(height: 20),
                     ElevatedButton.icon(
