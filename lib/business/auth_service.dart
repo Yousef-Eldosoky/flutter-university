@@ -9,7 +9,8 @@ class AuthService {
   static const _cookieKey = 'auth_cookies';
   static const apiUrl = "https://university.tryasp.net";
 
-  static Future<void> login(String email, String password, BuildContext context) async {
+  static Future<void> login(
+      String email, String password, BuildContext context) async {
     final url = Uri.parse('$apiUrl/login?useCookies=true');
 
     try {
@@ -79,7 +80,8 @@ class AuthService {
     }
   }
 
-  static Future<void> register(String email, String password, String name, BuildContext context) async {
+  static Future<void> register(
+      String email, String password, String name, BuildContext context) async {
     final url = Uri.parse('$apiUrl/register');
 
     try {
@@ -147,7 +149,8 @@ class AuthService {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Registration failed. Email might already be in use.'),
+              content:
+                  Text('Registration failed. Email might already be in use.'),
               backgroundColor: Colors.red,
             ),
           );
@@ -189,6 +192,20 @@ class AuthService {
     } catch (e) {
       return false;
     }
+  }
+
+  static Future<void> logout() async {
+    final cookie = await getStoredCookies();
+    if (cookie == null) return;
+
+    final url = Uri.parse('$apiUrl/logout');
+    await http.post(
+      url,
+      headers: {
+        'Cookie': cookie,
+      },
+    );
+    await clearCookies();
   }
 
   static Future<String?> getStoredCookies() async {

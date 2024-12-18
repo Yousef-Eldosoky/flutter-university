@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:university/business/notifications_services.dart';
 import 'package:university/pages/Homepage.dart';
 import 'package:university/pages/auth_wrapper.dart';
+import 'package:university/pages/account_page.dart';
 import 'package:university/pages/courses.dart';
 import 'package:university/pages/majors.dart';
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         "major": (context) => majors(),
         "course": (context) => const courses(),
         "auth": (context) => const AuthWrapper(),
+        "account": (context) => const AccountPage(),
       },
     );
   }

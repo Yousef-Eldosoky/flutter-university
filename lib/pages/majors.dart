@@ -75,7 +75,7 @@ class majors extends StatelessWidget {
                           height: 100,
                           width: 100,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           item['title']!,
                           style: const TextStyle(

@@ -1,17 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:university/business/auth_service.dart';
 import 'package:university/pages/apply_now.dart';
 import 'package:university/pages/courses.dart';
 import 'package:university/pages/majors.dart';
+import 'package:university/pages/account_page.dart';
 import 'guidelines_page.dart';
 import 'applicationstatus.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  int _selectedIndex = 0;
+  
   final List<Map<String, dynamic>> gridItems = [
     {"title": "Courses", "image": "images/cor.jpg", "page": majors()},
     {"title": "My Application", "image": "images/app.jpg", "page": const ApplicationStatusPage()},
     {"title": "Apply Now", "image": "images/apply.jpg", "page": ApplicationForm()},
     {"title": "Majors", "image": "images/mj.jpg", "page": const courses()},
   ];
+
+  final List<Widget> _pages = [
+    _HomeContent(),
+    const AccountPage(),
+    const GuidelinesPage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,154 +58,164 @@ class Homepage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(
-                height: 70,
-              ),
+              const SizedBox(height: 70),
               const Icon(
                 Icons.favorite,
-                color: const Color.fromARGB(255, 255, 255, 255),
-              )
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  await AuthService.logout();
+                  Navigator.pushReplacementNamed(context, 'auth');
+                },
+                icon: const Icon(Icons.logout, color: Colors.red),
+                label: const Text('Logout', style: TextStyle(color: Colors.red)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
+              ),
             ],
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            AppBarWidget(),
-            const Padding(
-              padding: EdgeInsets.only(top: 5, left: 10, bottom: 0),
-              child: Text(
-                "let's start the journey....                                     ^ ",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: const Color.fromARGB(255, 94, 131, 243),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 3 / 2.8,
-                ),
-                itemCount: gridItems.length,
-                itemBuilder: (context, index) {
-                  final item = gridItems[index];
-                  return GestureDetector(
-                    onTap: () {
-                      if (item['page'] != null) {
-                        Navigator.push(
-                          context,
-                          _createPageRoute(item['page']),
-                        );
-                      } else {
-                        print('null');
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            item['image']!,
-                            height: 100,
-                            width: 100,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            item['title']!,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: const Color.fromARGB(255, 94, 131, 243),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            GestureDetector(
-              onVerticalDragEnd: (details) {
-                if (details.primaryVelocity! < 0) {
-                  Scaffold.of(context).openDrawer();
-                }
-              },
-              child: Container(
-                height: 50,
-                width: 180,
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.blueAccent,
-                    width: 2,
-                  ),
-                ),
-                child: const Center(
-                  child: Text(
-                    "swipe ^^ ",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildIconWithLabel(Icons.home, "Home", () {}),
-            _buildIconWithLabel(Icons.person, "Account", () {}),
-            _buildIconWithLabel(Icons.help, "FAQ", () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => GuidelinesPage()),
-              );
-            }),
-          ],
-        ),
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.help),
+            label: 'FAQ',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
       ),
     );
   }
+}
 
-  Widget _buildIconWithLabel(IconData icon, String label, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
+class _HomeContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> gridItems = [
+      {"title": "Courses", "image": "images/cor.jpg", "page": majors()},
+      {"title": "My Application", "image": "images/app.jpg", "page": const ApplicationStatusPage()},
+      {"title": "Apply Now", "image": "images/apply.jpg", "page": ApplicationForm()},
+      {"title": "Majors", "image": "images/mj.jpg", "page": const courses()},
+    ];
+
+    return SingleChildScrollView(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: const Color.fromARGB(255, 87, 119, 214), size: 30),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: const TextStyle(color: Colors.grey, fontSize: 10),
+          AppBarWidget(),
+          const Padding(
+            padding: EdgeInsets.only(top: 5, left: 10, bottom: 0),
+            child: Text(
+              "let's start the journey....                                     ^ ",
+              style: TextStyle(
+                fontSize: 15,
+                color: Color.fromARGB(255, 94, 131, 243),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 3 / 2.8,
+              ),
+              itemCount: gridItems.length,
+              itemBuilder: (context, index) {
+                final item = gridItems[index];
+                return GestureDetector(
+                  onTap: () {
+                    if (item['page'] != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => item['page'] as Widget),
+                      );
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          item['image'] as String,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          item['title'] as String,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 20),
+          GestureDetector(
+            onVerticalDragEnd: (details) {
+              if (details.primaryVelocity! < 0) {
+                Scaffold.of(context).openDrawer();
+              }
+            },
+            child: Container(
+              height: 50,
+              width: 180,
+              decoration: BoxDecoration(
+                color: Colors.blue.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(
+                  color: Colors.blueAccent,
+                  width: 2,
+                ),
+              ),
+              child: const Center(
+                child: Text(
+                  "swipe ^^ ",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),

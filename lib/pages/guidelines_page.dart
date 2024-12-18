@@ -14,22 +14,13 @@ class _GuidelinesPageState extends State<GuidelinesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(children: [
-      Align(
-        alignment: Alignment.topLeft,
-        child: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+        body: ListView(children: const [
       const AppBarWidget(
           title: "Guidelines & FAQs",
           subtitle: "Application guide and support",
           icon:  Icons.help_outline,),
-      const SizedBox(height: 20),
-      const FaqsSection(),
+      SizedBox(height: 20),
+      FaqsSection(),
     ]));
   }
 }
